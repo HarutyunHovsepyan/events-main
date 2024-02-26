@@ -41,6 +41,7 @@ Route::get('/expired', [PostController::class, 'expired'])->name('expired');
 Route::prefix('post')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('post.index');
     Route::get('/add-post', [PostController::class,'create'])->name('post.add-post');
+    Route::get('/show-post:{id}', [PostController::class,'show'])->name('post.show-post');
     Route::post('/store-post', [PostController::class,'store'])->name('post.store-post');
     Route::delete('/delete-post:{id}', [PostController::class,'destroy'])->name('post.delete-post');
     Route::get('/edit-post:{id}', [PostController::class,'edit'])->name('post.edit-post');
