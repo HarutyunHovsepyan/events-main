@@ -12,13 +12,13 @@ class MyPostController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $userId = Auth::id();
+    {
+        $userId = Auth::id();
 
-    $posts = Post::where('user_id', $userId)->orderBy('start_date')->get();
+        $posts = Post::where('user_id', $userId)->orderBy('start_date')->get();
 
-    return view('my-post.index', compact('posts'));
-}
+        return view('my-post.index', compact('posts'));
+    }
 
     /**
      * Show the form for creating a new resource.

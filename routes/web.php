@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\MyPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,19 +18,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PostController::class, 'index'])->name('post.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/my-posts', [MyPostController::class, 'index'])->name('my-post.index');
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/users', [AdminController::class, 'index'])->name('users');
+    Route::patch('/change-status/{id}', [AdminController::class, 'changeStatus'])->name('change-status');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
+    Route::get('/my-posts', [MyPostController::class, 'index'])->name('my-post.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -51,8 +52,23 @@ Route::prefix('post')->group(function () {
 
 
 
+// Authentication Routes
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 
-Route::get('/users', [AdminController::class, 'index'])->name('users');
+Route::post('/login', [Controller::class, 'login']);
 
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+Route::post('/register', [Controller::class, 'register']);
+
+Route::post('/logout', [Controller::class, 'logout'])->name('logout');
+
+
+Route::middleware(['auth', 'check-status'])->group(function () {
+});
 
 require __DIR__.'/auth.php';

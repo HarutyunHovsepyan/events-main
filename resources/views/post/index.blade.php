@@ -1,6 +1,8 @@
 <x-app-layout>
     <div class="container mt-6">
+        @auth
         <a href="{{ route('post.add-post') }}" type="button" class="btn btn-success">Add new</a>
+        @endauth
         <div class="row">
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 @foreach($posts as $post)
@@ -11,12 +13,14 @@
                     <p class="text-gray-600 mb-4">End Date: <b>{{ $post->end_date }}</b></p>
                     <p class="text-gray-600 mb-4">Visited persons: <b>{{ $post->visit_count}}</b></p>
                     <div class="flex justify-end">
+                        @auth
                         <form action="{{ route('post.toggleInvite', $post->id) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-{{ $post->isInvited() ? 'danger' : 'success' }} card-link" name="action" value="{{ $post->isInvited() ? 'cancel' : 'invite' }}">
                                 {{ $post->isInvited() ? 'Cancel Invite' : 'Invite' }}
                             </button>
                         </form>
+                        @endauth
                         <a href="{{route('post.show-post',$post->id) }}" class="btn btn-primary card-link">View More</a>
                     </div>
                 </div>

@@ -16,6 +16,11 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'user_post', 'posts_id', 'users_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function isInvited()
     {
         return $this->users()->where('users_id', auth()->id())->exists();
