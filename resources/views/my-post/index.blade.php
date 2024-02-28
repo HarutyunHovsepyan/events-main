@@ -21,7 +21,7 @@
                     <form action="{{ route('post.delete-post', ['id' => $post->id]) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger bg-red-500">Delete</button>
                     </form>
                     @endif
                 </div>

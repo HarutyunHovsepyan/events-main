@@ -67,8 +67,4 @@ Route::post('/register', [Controller::class, 'register']);
 
 Route::post('/logout', [Controller::class, 'logout'])->name('logout');
 
-
-Route::middleware(['auth', 'check-status'])->group(function () {
-});
-
 require __DIR__.'/auth.php';

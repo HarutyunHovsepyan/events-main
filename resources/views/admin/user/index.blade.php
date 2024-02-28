@@ -30,7 +30,7 @@
                                 <form action="{{ route('change-status', $user->id) }}" method="POST">
                                     @csrf
                                     @method('PATCH')
-                                    <button type="submit" class="btn btn-primary">Approve</button>
+                                    <button type="submit" class="btn btn-primary bg-blue-500">Approve</button>
                                 </form>
                             </td>
                         </tr>

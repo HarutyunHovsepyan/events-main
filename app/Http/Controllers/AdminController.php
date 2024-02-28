@@ -65,5 +65,13 @@ class AdminController extends Controller
         //
     }
 
-    
+    public function changeStatus($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->status = 'approved';
+        $user->save();
+
+        return redirect()->back()->with('success', 'User status updated successfully.');
+    }
 }

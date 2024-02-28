@@ -1,7 +1,8 @@
 <x-app-layout>
     <div class="container mt-6">
         @auth
-        <a href="{{ route('post.add-post') }}" type="button" class="btn btn-success">Add new</a>
+        <a href="{{ route('post.add-post') }}" class="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Add new</a>
+
         @endauth
         <div class="row">
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -16,9 +17,10 @@
                         @auth
                         <form action="{{ route('post.toggleInvite', $post->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-{{ $post->isInvited() ? 'danger' : 'success' }} card-link" name="action" value="{{ $post->isInvited() ? 'cancel' : 'invite' }}">
+                            <button type="submit" class="btn btn-{{ $post->isInvited() ? 'danger' : 'success' }} card-link {{ $post->isInvited() ? 'bg-red-500' : 'bg-green-500' }}" name="action" value="{{ $post->isInvited() ? 'cancel' : 'invite' }}">
                                 {{ $post->isInvited() ? 'Cancel Invite' : 'Invite' }}
                             </button>
+
                         </form>
                         @endauth
                         <a href="{{route('post.show-post',$post->id) }}" class="btn btn-primary card-link">View More</a>
